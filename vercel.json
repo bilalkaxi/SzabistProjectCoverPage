@@ -2,11 +2,11 @@
   "$schema": "https://openapi.vercel.sh/vercel.json",
   "services": {
     "backend": {
-      "root": "Desktop/LibraryManagementSystem/backend",
+      "root": "/",
       "framework": "express"
     },
     "frontend": {
-      "root": "Desktop/LibraryManagementSystem/frontend",
+      "root": "/",
       "framework": "nextjs"
     }
   },
