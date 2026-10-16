@@ -391,6 +391,62 @@
     }
     .cover * { page-break-inside: avoid !important; }
   }
+  /* ─── DONATE POPUP ─── */
+.donate-fab {
+  position: fixed; right: 18px; bottom: 18px; z-index: 999;
+  background: #3aa935; color: #fff; border: none;
+  padding: 10px 18px; border-radius: 999px;
+  font-size: 14px; font-weight: 700; cursor: pointer;
+  box-shadow: 0 6px 20px rgba(0,0,0,.35);
+  font-family: 'Times New Roman', Times, serif;
+}
+.donate-fab:hover { background: #2f8f2b; }
+
+.donate-overlay {
+  position: fixed; inset: 0; z-index: 1000;
+  background: rgba(0,0,0,.6);
+  display: none; align-items: center; justify-content: center;
+  padding: 16px;
+}
+.donate-overlay.show { display: flex; }
+
+.donate-box {
+  position: relative; width: 100%; max-width: 340px;
+  background: #fff; border-radius: 16px;
+  padding: 26px 22px 22px; text-align: center;
+  box-shadow: 0 20px 60px rgba(0,0,0,.5);
+  animation: donatePop .25s ease;
+  font-family: 'Times New Roman', Times, serif;
+}
+@keyframes donatePop {
+  from { transform: scale(.85); opacity: 0; }
+  to   { transform: scale(1);   opacity: 1; }
+}
+.donate-close {
+  position: absolute; top: 8px; right: 12px;
+  background: none; border: none; font-size: 26px;
+  line-height: 1; color: #666; cursor: pointer;
+}
+.donate-close:hover { color: #000; }
+
+.donate-logo { width: 70px; height: 70px; margin: 0 auto 8px; display: block; }
+.donate-box h3 { font-size: 18px; color: #1a1a2e; margin-bottom: 6px; }
+.donate-box p  { font-size: 13px; color: #555; margin-bottom: 14px; line-height: 1.5; }
+
+.donate-number {
+  background: #eef8ec; border: 2px dashed #3aa935;
+  border-radius: 10px; padding: 10px;
+  font-size: 22px; font-weight: 700; letter-spacing: 1.5px; color: #1f6b1b;
+}
+.donate-copy {
+  margin-top: 12px; width: 100%; padding: 10px;
+  background: #3aa935; color: #fff; border: none; border-radius: 8px;
+  font-size: 14px; font-weight: 700; cursor: pointer;
+  font-family: 'Times New Roman', Times, serif;
+}
+.donate-copy:hover { background: #2f8f2b; }
+
+@media print { .donate-fab, .donate-overlay { display: none !important; } }
 </style>
 </head>
 <body>
@@ -550,7 +606,27 @@
 
   </div>
 </div>
+<!-- DONATE BUTTON + POPUP -->
+<button class="donate-fab" onclick="openDonate()">☕ Donate</button>
 
+<div class="donate-overlay" id="donateOverlay" onclick="closeDonate(event)">
+  <div class="donate-box">
+    <button class="donate-close" onclick="closeDonate()" aria-label="Close">&times;</button>
+
+    <!-- Placeholder logo: replace with your real Easypaisa image if you have one -->
+    <svg class="donate-logo" viewBox="0 0 100 100">
+      <circle cx="50" cy="50" r="48" fill="#3aa935"/>
+      <text x="50" y="62" font-size="42" font-weight="700" text-anchor="middle"
+            fill="#fff" font-family="Arial, sans-serif">e</text>
+    </svg>
+
+    <h3>Support this Project</h3>
+    <p>If this tool helped you, you can send a small donation via <b>Easypaisa</b>. Thank you! 💚</p>
+
+    <div class="donate-number" id="donateNumber">03099004292</div>
+    <button class="donate-copy" onclick="copyDonate()" id="copyBtn">Copy Number</button>
+  </div>
+</div>
 <script>
 // Set today as default date
 window.addEventListener('DOMContentLoaded', function() {
