@@ -734,6 +734,42 @@ function downloadPDF() {
     document.body.removeChild(holder);
   });
 }
+  function openDonate() {
+  document.getElementById("donateOverlay").classList.add("show");
+}
+function closeDonate(e) {
+  // Close if X clicked (no event) or if the dark background itself was clicked
+  if (!e || e.target.id === "donateOverlay") {
+    document.getElementById("donateOverlay").classList.remove("show");
+  }
+}
+function copyDonate() {
+  var num = "03099004292";
+  var btn = document.getElementById("copyBtn");
+  var done = function () {
+    btn.textContent = "Copied ✓";
+    setTimeout(function () { btn.textContent = "Copy Number"; }, 1500);
+  };
+  if (navigator.clipboard) {
+    navigator.clipboard.writeText(num).then(done);
+  } else {
+    var t = document.createElement("textarea");
+    t.value = num; document.body.appendChild(t);
+    t.select(); document.execCommand("copy");
+    document.body.removeChild(t); done();
+  }
+}
+document.addEventListener("keydown", function (e) {
+  if (e.key === "Escape") closeDonate();
+});
+
+// Optional: auto-open once per visit after 4 seconds
+if (!sessionStorage.getItem("donateShown")) {
+  setTimeout(function () {
+    openDonate();
+    sessionStorage.setItem("donateShown", "1");
+  }, 4000);
+}
 </script>
 </body>
 </html>
